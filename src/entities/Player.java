@@ -5,9 +5,13 @@ import utils.Constants;
 import utils.Vector2D;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 public class Player {
+
+    public static class Ray {
+        public Vector2D position;
+
+    }
 
     public static Vector2D position;
     public static double direction = 180;
@@ -55,7 +59,7 @@ public class Player {
                 wall.contains(position.x() - r, position.y() + r) ||
                 wall.contains(position.x() + r, position.y() + r)
             ) {
-                position = position.add(-dx, -dy);
+                position = position.subtract(dx, dy);
             }
         }
     }
