@@ -52,20 +52,6 @@ public class Main {
 
     public static void paint(Graphics2D g) {
 
-        // Render Pseudo-3D Rays
-        for (int i = 0; i < Player.Ray.xLines.size(); i++) {
-            if (Player.Ray.heights.isEmpty()) break;
-
-            int xLine = Player.Ray.xLines.get(i);
-            double height = Player.Ray.heights.get(i);
-
-            // TODO: add side colours etc
-            g.setColor(Color.getHSBColor(.66F, 1F, 1.9607F));
-            g.drawLine(xLine, (int) (((double) Constants.SCREEN_HEIGHT / 2) - (height / 2)),
-                    xLine + Constants.RES, (int) (((double) Constants.SCREEN_HEIGHT / 2) + (height / 2)));
-        }
-
-
         // Render Minimap
         // Walls
         if (Main.renderMap2D && Main.worldMap != null) {
