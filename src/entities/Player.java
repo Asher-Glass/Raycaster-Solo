@@ -8,11 +8,6 @@ import java.awt.*;
 
 public class Player {
 
-    public static class Ray {
-        public Vector2D position;
-
-    }
-
     public static Vector2D position;
     public static double direction = 180;
 
