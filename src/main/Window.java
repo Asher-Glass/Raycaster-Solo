@@ -5,52 +5,63 @@ import java.awt.*;
 
 import static utils.Constants.*;
 
+// Desktop window handler
 public class Window extends JPanel {
 
     public Window() {
-        this.setBackground(Color.black);
+        this.setBackground(Color.black); // Black background
 
         JFrame frame = new JFrame(TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-        frame.setResizable(false);
-        frame.setLocationRelativeTo(null);
-        frame.setUndecorated(true);
-        frame.add(this);
+        frame.setResizable(false); // Can't resize window (if enabled will cause issues when resized)
+        frame.setLocationRelativeTo(null); // Centre window
+        frame.setUndecorated(true); // Remove the menu bar (proper fullscreen)
+        frame.add(this); // The desktop window will be affected by changes to the class
 
-        frame.addKeyListener(Main.keyHandler);
+        frame.addKeyListener(Main.keyHandler); // Can handle key presses however I please
 
-        frame.setVisible(true);
+        frame.setVisible(true); // Make sure the desktop window is visible
 
+        // Get fps
         new Thread(() -> {
 
             final double TARGET_UPS = 60.0;
             final double NS_PER_UPDATE = 1_000_000_000.0 / TARGET_UPS;
+            // Ensures running at minimum 60fps and calculates 60fps = ~16.67ms
 
-            long lastTime = System.nanoTime();
-            long fpsTimer = System.currentTimeMillis();
+            long lastTime = System.nanoTime(); // The time elapsed since program start (used for duration measurement)
+            long fpsTimer = System.nanoTime();
+            int frameCount = 0; // Count how many frames passed
+
 
             double delta = 0;
+            // Is used to count how many fractions of an update in game logic are lost
 
             while (true) {
 
                 long now = System.nanoTime();
 
                 delta += (now - lastTime) / NS_PER_UPDATE;
+                // Converts time into "updates owed" for fixed timestep
+
                 lastTime = now;
 
-                // Fixed-rate game updates
-                while (delta >= 1) {
-                    Main.update();
-                    delta--;
-                }
+                // Catches up game logic if owes an update
+                for (; delta >= 1; delta--) Main.update();
 
+                // Requests a repaint; GUI thread decides when to perform it
                 this.repaint();
+                frameCount++;
 
-                if (System.currentTimeMillis() - fpsTimer >= 1000) {
-                    fpsTimer += 1000;
+                if (System.nanoTime() - fpsTimer >= 1_000_000_000) { // Runs every second
+                    fpsTimer += 1_000_000_000; // Changes reference point to reset the second-timer
+
+                    System.out.println(frameCount + "fps"); // Display fps every second
+                    frameCount = 0; // Reset count so it doesn't show 60fps -> 120fps -> 180fps etc
                 }
 
+                // Give game a delay so as not to overload the CPU
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException e) {
@@ -61,6 +72,8 @@ public class Window extends JPanel {
         }).start();
     }
 
+    // Paint the whole screen and call Main.paint() which holds other paint methods
+    // FIXME: Replace with BufferedImage
     public void paintComponent(Graphics G) {
         super.paintComponent(G);
         Graphics2D g = (Graphics2D) G.create();

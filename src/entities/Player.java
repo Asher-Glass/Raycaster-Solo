@@ -8,6 +8,10 @@ import java.awt.*;
 
 public class Player {
 
+    static class Ray {
+        public static Ray[] rays = new Ray[Constants.RES];
+    }
+
     public static Vector2D position;
     public static double direction = 180;
 

@@ -2,24 +2,28 @@ package main;
 
 import entities.*;
 import utils.*;
-import entities.*;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// Launcher, basically
 public class Main {
-    public static int[][] worldMap;
-    public static ArrayList<Rectangle> walls = new ArrayList<>();
+    public static int[][] worldMap; // Will be a matrix array of the map
+    public static ArrayList<Rectangle> walls = new ArrayList<>(); // Will be a list of the coords of walls
 
+    // Whether to render the minimap
     public static boolean renderMap2D = true;
 
+    // Variable to be used for handling key input
     public static KeyHandler keyHandler = new KeyHandler();
 
-
+    // main method
     public static void main(String[] args) {
-        new Window();
-        genMap();
+
+        // Start up the desktop window
+        Window window = new Window();
+        genMap(); // Load the map
 
         Player.position = new Vector2D(
                 ((double) worldMap.length / 2) * Constants.TILE_SIZE,
@@ -27,23 +31,7 @@ public class Main {
     }
 
     public static void genMap() {
-        List<String> map = MapLoader.loadMap("src/utils/map.txt");
-        worldMap = new int[map.size()][map.getFirst().split(" ").length];
-
-        for (int y = 0; y < map.size(); y++) {
-
-            String[] row = map.get(y).split(" ");
-            for (int x = 0; x < row.length; x++) {
-                worldMap[y][x] = Integer.parseInt(row[x]);
-
-                if (worldMap[y][x] == 1)
-                    walls.add(new Rectangle(
-                            x * Constants.TILE_SIZE,
-                            y * Constants.TILE_SIZE,
-                            Constants.TILE_SIZE,
-                            Constants.TILE_SIZE));
-            }
-        }
+        worldMap = MapLoader.loadMap("src/utils/world.txt");
     }
 
     public static void update() {
@@ -52,9 +40,10 @@ public class Main {
 
     public static void paint(Graphics2D g) {
 
-        // Render Minimap
-        // Walls
+        // Render Minimap if enabled
         if (Main.renderMap2D && Main.worldMap != null) {
+
+            // Walls
             g.setColor(Color.darkGray);
 
             for (int row = 0; row < Main.worldMap.length; row++) {
@@ -68,14 +57,14 @@ public class Main {
                                 Constants.TILE_SIZE / Constants.MINIMAP_SIZE_DIVIDER);
                 }
             }
-        }
 
-        // Player
-        g.setColor(Color.yellow);
-        g.fillOval(
-                (int) (Player.position.x() - (double) Constants.ENTITY_RADIUS) / Constants.MINIMAP_SIZE_DIVIDER,
-                (int) (Player.position.y() - (double) Constants.ENTITY_RADIUS) / Constants.MINIMAP_SIZE_DIVIDER,
-                (Constants.ENTITY_RADIUS * 2) / Constants.MINIMAP_SIZE_DIVIDER,
-                (Constants.ENTITY_RADIUS * 2) / Constants.MINIMAP_SIZE_DIVIDER);
+            // Player
+            g.setColor(Color.yellow);
+            g.fillOval(
+                    (int) (Player.position.x() - (double) Constants.ENTITY_RADIUS) / Constants.MINIMAP_SIZE_DIVIDER,
+                    (int) (Player.position.y() - (double) Constants.ENTITY_RADIUS) / Constants.MINIMAP_SIZE_DIVIDER,
+                    (Constants.ENTITY_RADIUS * 2) / Constants.MINIMAP_SIZE_DIVIDER,
+                    (Constants.ENTITY_RADIUS * 2) / Constants.MINIMAP_SIZE_DIVIDER);
+        }
     }
 }
