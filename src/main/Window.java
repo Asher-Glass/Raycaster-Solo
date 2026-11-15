@@ -11,12 +11,12 @@ public class Window extends JPanel {
     public Window() {
         this.setBackground(Color.black); // Black background
 
-        JFrame frame = new JFrame(TITLE);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        JFrame frame = new JFrame(TITLE); // Make screen
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Stop program when window closes
+        frame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT); // Fullscreen
+        frame.setUndecorated(true); // Remove the menu bar (proper fullscreen)
         frame.setResizable(false); // Can't resize window (if enabled will cause issues when resized)
         frame.setLocationRelativeTo(null); // Centre window
-        frame.setUndecorated(true); // Remove the menu bar (proper fullscreen)
         frame.add(this); // The desktop window will be affected by changes to the class
 
         frame.addKeyListener(Main.keyHandler); // Can handle key presses however I please
@@ -69,7 +69,7 @@ public class Window extends JPanel {
                 }
             }
 
-        }).start();
+        }).start(); // Start the timer
     }
 
     // Paint the whole screen and call Main.paint() which holds other paint methods

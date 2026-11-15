@@ -5,7 +5,6 @@ import utils.*;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
 
 // Launcher, basically
 public class Main {
@@ -19,25 +18,32 @@ public class Main {
     public static KeyHandler keyHandler = new KeyHandler();
 
     // main method
-    public static void main(String[] args) {
+    static void main() {
 
         // Start up the desktop window
-        Window window = new Window();
+        new Window();
         genMap(); // Load the map
 
+        // Initiate player into middle of map
         Player.position = new Vector2D(
                 ((double) worldMap.length / 2) * Constants.TILE_SIZE,
                 ((double) worldMap.length / 2) * Constants.TILE_SIZE);
+
+        // Instantiate player's rays
+        for (int i = 0; i < Player.rays.length; i++) Player.rays[i] = new Player.Ray();
     }
 
+    // Method to generate map
     public static void genMap() {
-        worldMap = MapLoader.loadMap("src/utils/world.txt");
+        worldMap = MapLoader.loadMap("src/utils/map.txt");
     }
 
+    // Method to update all entities
     public static void update() {
         Player.update();
     }
 
+    // Paint screen (will probably be replaced with BufferedImage later)
     public static void paint(Graphics2D g) {
 
         // Render Minimap if enabled
@@ -59,12 +65,26 @@ public class Main {
             }
 
             // Player
-            g.setColor(Color.yellow);
-            g.fillOval(
-                    (int) (Player.position.x() - (double) Constants.ENTITY_RADIUS) / Constants.MINIMAP_SIZE_DIVIDER,
-                    (int) (Player.position.y() - (double) Constants.ENTITY_RADIUS) / Constants.MINIMAP_SIZE_DIVIDER,
-                    (Constants.ENTITY_RADIUS * 2) / Constants.MINIMAP_SIZE_DIVIDER,
-                    (Constants.ENTITY_RADIUS * 2) / Constants.MINIMAP_SIZE_DIVIDER);
+            if (Player.position != null) {
+                g.setColor(Color.yellow);
+                g.fillOval(
+                        (int) (Player.position.x() - (double) Constants.RAY_MAP_SIZE) / Constants.MINIMAP_SIZE_DIVIDER,
+                        (int) (Player.position.y() - (double) Constants.RAY_MAP_SIZE) / Constants.MINIMAP_SIZE_DIVIDER,
+                        Constants.RAY_MAP_SIZE * 2,
+                        Constants.RAY_MAP_SIZE * 2);
+            }
+
+            // Ray (for initial ray testing)
+            g.setColor(Color.cyan);
+            for (Player.Ray ray : Player.rays) {
+                if (ray != null && ray.launched) {
+                    g.fillOval(
+                            (int) (ray.position.x() - Constants.RAY_MAP_SIZE) / Constants.MINIMAP_SIZE_DIVIDER,
+                            (int) (ray.position.y() - Constants.RAY_MAP_SIZE) / Constants.MINIMAP_SIZE_DIVIDER,
+                            (Constants.RAY_MAP_SIZE * 2) / Constants.MINIMAP_SIZE_DIVIDER,
+                            (Constants.RAY_MAP_SIZE * 2) / Constants.MINIMAP_SIZE_DIVIDER);
+                }
+            }
         }
     }
 }

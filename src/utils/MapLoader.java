@@ -10,6 +10,9 @@ import static main.Main.walls;
 // Whole class made to load maps from .txt files
 public class MapLoader {
 
+    // Save the whole binary map for easier and faster raycasting
+    public static int[][] binMap;
+
     public static int[][] loadMap(String path) {
         List<String> lines = new ArrayList<>();
 
@@ -23,6 +26,7 @@ public class MapLoader {
         }
 
         int[][] map = new int[lines.size()][lines.getFirst().split(" ").length];
+        binMap = map;
 
         for (int y = 0; y < lines.size(); y++) {
 

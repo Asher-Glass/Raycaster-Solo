@@ -6,15 +6,11 @@ public record Vector2D(double x, double y) {
     public Vector2D add(Vector2D other) {
         return new Vector2D(this.x + other.x, this.y + other.y);
     }
-    public Vector2D add(double x, double y) {
-        return new Vector2D(this.x + x, this.y + y);
+    public Vector2D add(double dx, double dy) {
+        return new Vector2D(this.x + dx, this.y + dy);
     }
-
-    public Vector2D subtract(Vector2D other) {
-        return new Vector2D(this.x - other.x, this.y - other.y);
-    }
-    public Vector2D subtract(double x, double y) {
-        return new  Vector2D(this.x - x, this.y - y);
+    public Vector2D subtract(double dx, double dy) {
+        return new  Vector2D(this.x - dx, this.y - dy);
     }
 
     // Object-override methods
