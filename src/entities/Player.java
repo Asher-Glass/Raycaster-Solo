@@ -8,16 +8,28 @@ import java.awt.*;
 public class Player {
 
     public static class Ray {
+        private static double offset;
+
+        public final double offsetFinal;
         public Vector2D position;
         public double direction;
         public boolean launched;
         public Vector2D hitPos;
+        public double height;
+
+        static {
+            offset = -((double) Constants.FOV / 2);
+        }
 
         public Ray() {
+            offsetFinal = offset;
+
             position = Player.position;
-            direction = Player.direction;
+            direction = Player.direction + offsetFinal;
             launched = false;
             hitPos = null;
+
+            offset += Constants.RAY_INCREMENT;
         }
 
         public void update() {
@@ -29,8 +41,8 @@ public class Player {
             }
             else {
                 position = Player.position;
-                direction = Player.direction;
-                if (Main.keyHandler.SPACE) launched = true;
+                direction = Player.direction + offsetFinal;
+                launched = true;
             }
         }
 
@@ -47,12 +59,21 @@ public class Player {
             int tile = MapLoader.binMap[row][col];
 
             if (tile == 1) {
+                do {
+                    position = position.subtract(
+                            Constants.RAY_BACK_SPEED * Math.sin(dirRad),
+                            Constants.RAY_BACK_SPEED * Math.cos(dirRad)
+                    );
+                } while (MapLoader.binMap
+                        [(int) (position.y() / Constants.TILE_SIZE)]
+                        [(int) (position.x() / Constants.TILE_SIZE)] == 1);
                 hitPos = position;
+                height = Constants.WALL_HEIGHT / hitPos.distanceTo(Player.position);
             }
         }
     }
 
-    public static Ray[] rays = new Ray[1]; // TODO: set to new Ray[Constants.RES] when done with testing etc
+    public static Ray[] rays = new Ray[Constants.RAY_AMOUNT];
 
     public static Vector2D position;
     public static double direction = 180;

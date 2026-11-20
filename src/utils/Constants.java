@@ -8,8 +8,9 @@ public class Constants {
     public static final int SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width; // Width of window
     public static final int SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height; // Height of window
 
-    // Game Constants
+    // Map/Tile Constants
     public static final int TILE_SIZE = 16; // Measurement of one tile
+    public static final int WALL_HEIGHT = 50_000;
 
     // Entity Constants
     public static final int ENTITY_RADIUS = 4; // How big the entities are (tile size / 4)
@@ -17,11 +18,15 @@ public class Constants {
 
     // RayCasting-Specific Constants
     public static final int RES = 16; // How many rays to cast (higher -> slow but high quality)
-    public static final int FOV = 60; // The range of how far spread to shoot the rays (higher -> zoomed out)
+    public static final int FOV = 120; // The range of how far spread to shoot the rays (higher -> zoomed out)
 
-    public static final int RAY_SPEED = 2; // How fast the ray moves (faster makes it skip corners)
+    public static final int RAY_SPEED = 6; // How fast the ray moves (faster makes it skip corners)
+    public static final int RAY_BACK_SPEED = 2; // How fast ray moves to edge of wall for more precise casting
+
+    public static final int RAY_AMOUNT = SCREEN_WIDTH / RES; // Amount of rays to be made
+    public static final double RAY_INCREMENT = (double) FOV / RAY_AMOUNT;
 
     // Minimap Constants
-    public static final int MINIMAP_SIZE_DIVIDER = 1; // tile size / this = how many pixels^2 for minimap tile
+    public static final int MINIMAP_SIZE_DIVIDER = 2; // tile size / this = how many pixels^2 for minimap tile
     public static final int RAY_MAP_SIZE = ENTITY_RADIUS / 2;
 }

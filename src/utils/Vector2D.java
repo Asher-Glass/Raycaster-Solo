@@ -13,6 +13,12 @@ public record Vector2D(double x, double y) {
         return new  Vector2D(this.x - dx, this.y - dy);
     }
 
+    // Double-returning methods
+    public double distanceTo(Vector2D other) {
+        double dx = this.x - other.x;
+        double dy = this.y - other.y;
+        return Math.hypot(dx, dy);
+    }
     // Object-override methods
     @Override
     public String toString() {

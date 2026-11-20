@@ -46,21 +46,33 @@ public class Main {
     // Paint screen (will probably be replaced with BufferedImage later)
     public static void paint(Graphics2D g) {
 
+        // Render pseudo-3D world!
+        g.setColor(Color.darkGray);
+        for (int i = 0; i < Player.rays.length; i++) {
+            g.fillRect(
+                    Constants.SCREEN_WIDTH - (i * Constants.RES),
+                    (int) (Constants.SCREEN_HEIGHT - Player.rays[i].height) / 2,
+                    Constants.RES,
+                    (int) Player.rays[i].height
+            );
+        }
+
         // Render Minimap if enabled
         if (Main.renderMap2D && Main.worldMap != null) {
 
             // Walls
-            g.setColor(Color.darkGray);
+            g.setColor(Color.lightGray);
 
             for (int row = 0; row < Main.worldMap.length; row++) {
                 for (int col = 0; col < Main.worldMap[0].length; col++) {
 
-                    if (Main.worldMap[row][col] == 1)
+                    if (Main.worldMap[row][col] == 1) {
                         g.fillRect(
                                 (col * Constants.TILE_SIZE) / Constants.MINIMAP_SIZE_DIVIDER,
                                 (row * Constants.TILE_SIZE) / Constants.MINIMAP_SIZE_DIVIDER,
                                 Constants.TILE_SIZE / Constants.MINIMAP_SIZE_DIVIDER,
                                 Constants.TILE_SIZE / Constants.MINIMAP_SIZE_DIVIDER);
+                    }
                 }
             }
 
@@ -74,7 +86,7 @@ public class Main {
                         Constants.RAY_MAP_SIZE * 2);
             }
 
-            // Ray (for initial ray testing)
+            // Rays (what the player sees)
             g.setColor(Color.cyan);
             for (Player.Ray ray : Player.rays) {
                 if (ray != null && ray.launched) {

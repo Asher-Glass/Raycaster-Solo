@@ -51,7 +51,7 @@ public class Window extends JPanel {
                 for (; delta >= 1; delta--) Main.update();
 
                 // Requests a repaint; GUI thread decides when to perform it
-                this.repaint();
+                repaint();
                 frameCount++;
 
                 if (System.nanoTime() - fpsTimer >= 1_000_000_000) { // Runs every second
