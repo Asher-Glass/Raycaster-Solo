@@ -61,7 +61,6 @@ public class Window extends JPanel {
 
                     displayFPS = frameCount; // Set the displayed fps to the fps
 
-                    System.out.println(displayFPS + "fps"); // Display fps every second
                     frameCount = 0; // Reset count so it doesn't show 60fps -> 120fps -> 180fps etc
                 }
 
