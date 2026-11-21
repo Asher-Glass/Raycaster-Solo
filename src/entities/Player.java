@@ -58,7 +58,7 @@ public class Player {
             int col = (int) (position.x() / Constants.TILE_SIZE);
             int tile = MapLoader.binMap[row][col];
 
-            if (tile == 1) {
+            if (tile == Constants.WALL_ID) {
                 do {
                     position = position.subtract(
                             Constants.RAY_BACK_SPEED * Math.sin(dirRad),
@@ -66,7 +66,7 @@ public class Player {
                     );
                 } while (MapLoader.binMap
                         [(int) (position.y() / Constants.TILE_SIZE)]
-                        [(int) (position.x() / Constants.TILE_SIZE)] == 1);
+                        [(int) (position.x() / Constants.TILE_SIZE)] == Constants.WALL_ID);
                 hitPos = position;
                 height = Constants.WALL_HEIGHT / hitPos.distanceTo(Player.position);
             }

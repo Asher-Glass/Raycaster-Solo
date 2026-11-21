@@ -33,7 +33,7 @@ public class MapLoader {
             for (int x = 0; x < row.length; x++) {
                 map[y][x] = Integer.parseInt(row[x]);
 
-                if (map[y][x] == 1)
+                if (map[y][x] == Constants.WALL_ID)
                     walls.add(new Rectangle(
                             x * Constants.TILE_SIZE,
                             y * Constants.TILE_SIZE,

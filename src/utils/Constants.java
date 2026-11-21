@@ -10,6 +10,7 @@ public class Constants {
 
     // Map/Tile Constants
     public static final int TILE_SIZE = 16; // Measurement of one tile
+    public static final int WALL_ID = 1;
     public static final int WALL_HEIGHT = 50_000;
 
     // Entity Constants

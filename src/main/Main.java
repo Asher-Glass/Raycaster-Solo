@@ -69,7 +69,7 @@ public class Main {
             for (int row = 0; row < Main.worldMap.length; row++) {
                 for (int col = 0; col < Main.worldMap[0].length; col++) {
 
-                    if (Main.worldMap[row][col] == 1) {
+                    if (Main.worldMap[row][col] == Constants.WALL_ID) {
                         g.fillRect(
                                 (col * Constants.TILE_SIZE) / Constants.MINIMAP_SIZE_DIVIDER,
                                 (row * Constants.TILE_SIZE) / Constants.MINIMAP_SIZE_DIVIDER,
