@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 // Launcher, basically
 public class Main {
+
+    public static Window window; // Will make the screen
+
     public static int[][] worldMap; // Will be a matrix array of the map
     public static ArrayList<Rectangle> walls = new ArrayList<>(); // Will be a list of the coords of walls
 
@@ -21,7 +24,7 @@ public class Main {
     static void main() {
 
         // Start up the desktop window
-        new Window();
+        window = new Window();
         genMap(); // Load the map
 
         // Initiate player into middle of map
@@ -98,5 +101,17 @@ public class Main {
                 }
             }
         }
+
+        // FPS counter
+        g.setColor(Color.green);
+        Font font = new Font("Arial", Font.BOLD, 60);
+        g.setFont(font);
+        FontMetrics metrics = g.getFontMetrics(font);
+        String fps = String.valueOf(window.displayFPS);
+
+        int x = Constants.SCREEN_WIDTH - metrics.stringWidth(fps);
+        int y = metrics.getAscent();
+
+        g.drawString(fps, x, y);
     }
 }

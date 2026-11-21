@@ -8,6 +8,8 @@ import static utils.Constants.*;
 // Desktop window handler
 public class Window extends JPanel {
 
+    public int displayFPS; // Count how many frames passed
+
     public Window() {
         this.setBackground(Color.black); // Black background
 
@@ -32,7 +34,7 @@ public class Window extends JPanel {
 
             long lastTime = System.nanoTime(); // The time elapsed since program start (used for duration measurement)
             long fpsTimer = System.nanoTime();
-            int frameCount = 0; // Count how many frames passed
+            int frameCount = 0; // How many frames passed
 
 
             double delta = 0;
@@ -57,7 +59,9 @@ public class Window extends JPanel {
                 if (System.nanoTime() - fpsTimer >= 1_000_000_000) { // Runs every second
                     fpsTimer += 1_000_000_000; // Changes reference point to reset the second-timer
 
-                    System.out.println(frameCount + "fps"); // Display fps every second
+                    displayFPS = frameCount; // Set the displayed fps to the fps
+
+                    System.out.println(displayFPS + "fps"); // Display fps every second
                     frameCount = 0; // Reset count so it doesn't show 60fps -> 120fps -> 180fps etc
                 }
 

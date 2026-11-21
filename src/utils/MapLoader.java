@@ -3,7 +3,6 @@ package utils;
 import java.awt.*;
 import java.io.*;
 import java.util.*;
-import java.util.List;
 
 import static main.Main.walls;
 
@@ -14,7 +13,7 @@ public class MapLoader {
     public static int[][] binMap;
 
     public static int[][] loadMap(String path) {
-        List<String> lines = new ArrayList<>();
+        ArrayList<String> lines = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 
