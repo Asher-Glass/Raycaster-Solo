@@ -17,10 +17,10 @@ public class Constants {
     public static final int ENTITY_SPEED = 3; // How fast entities move (might separate player to entity)
 
     // RayCasting-Specific Constants
-    public static final int RES = 1; // Sort of inverse resolution
+    public static final int RES = 4; // Sort of inverse resolution
     public static final int FOV = 120; // The range of how far spread to shoot the rays (higher -> zoomed out)
 
-    public static final int RAY_SPEED = 2; // How fast the ray moves (faster makes it skip corners)
+    public static final int RAY_SPEED = 1; // How fast the ray moves (faster makes it skip corners)
     public static final int RAY_BACK_SPEED = 1; // How fast ray moves to edge of wall for more precise casting
 
     public static final int RAY_AMOUNT = SCREEN_WIDTH / RES; // Amount of rays to be made
