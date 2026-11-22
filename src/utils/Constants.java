@@ -30,7 +30,7 @@ public class Constants {
     public static final int RAY_SPEED = 3; // How fast the ray moves (faster makes it skip corners)
     public static final int RAY_BACK_SPEED = 1; // How fast ray moves to edge of wall for more precise casting
 
-    public static final int RAY_AMOUNT = SCREEN_WIDTH / RES; // Amount of rays to be made
+    public static final int RAY_AMOUNT = (SCREEN_WIDTH / RES) + 1; // Amount of rays to be made
     public static final double RAY_INCREMENT = (double) FOV / RAY_AMOUNT;
 
     // Minimap Constants
