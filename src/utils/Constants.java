@@ -21,7 +21,7 @@ public class Constants {
     public static final int PLAYER_SPEED = 3;// How fast entities move (might separate player to entity)
     public static final int PLAYER_TURN_SPEED = 2; // How fast the player turns
 
-    public static final int TORCH_FACTOR = 1_815; // How fast the tiles fade around the player
+    public static final int TORCH_FACTOR = 1_500; // How fast the tiles fade around the player
 
     // RayCasting-Specific Constants
     public static final int RES = 4; // Sort of inverse resolution

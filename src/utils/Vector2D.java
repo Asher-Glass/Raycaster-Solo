@@ -19,6 +19,7 @@ public record Vector2D(double x, double y) {
         double dy = this.y - other.y;
         return Math.hypot(dx, dy);
     }
+
     // Object-override methods
     @Override
     public String toString() {
