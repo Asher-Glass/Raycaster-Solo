@@ -11,6 +11,7 @@ public class Player {
         private static double offset;
 
         public final double offsetFinal;
+        public int tile;
         public Vector2D position;
         public double direction;
         public boolean launched;
@@ -31,6 +32,8 @@ public class Player {
             hitPos = null;
 
             offset += Constants.RAY_INCREMENT;
+
+            update();
         }
 
         public void update() {
@@ -69,6 +72,8 @@ public class Player {
                 height = Constants.WALL_HEIGHT / distance;
 
                 this.distance = hitPos.distanceTo(Player.position);
+
+                this.tile = tile;
             }
         }
     }

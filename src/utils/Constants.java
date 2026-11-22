@@ -13,6 +13,8 @@ public class Constants {
 
     public static final int WALL_ID = 1; // ID for walls
     public static final int WALL_HEIGHT = 70_000; // Height of a wall (allows for taller or shorter tiles later)
+    public static final float[] WALL_COLOUR_HSB = Color.RGBtoHSB(64, 64, 64, null);
+    public static final float WALL_MAX_BRIGHTNESS = .25f;
 
     // Entity Constants
     public static final int ENTITY_RADIUS = 4; // How big the entities are (tile size / 4)

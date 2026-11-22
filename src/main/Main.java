@@ -60,16 +60,22 @@ public class Main {
         // Render pseudo-3D world
         for (int i = 0; i < Player.rays.length; i++) {
 
-            float brightness = Math.min(.5f, (float) (Constants.TORCH_FACTOR / Player.rays[i].distance) / 255);
-            float[] HSBGrey = Color.RGBtoHSB(64, 64, 64, null);
-            Color grey = Color.getHSBColor(HSBGrey[0], HSBGrey[1], brightness);
-            g.setColor(grey);
+            Player.Ray ray = Player.rays[i];
+
+            float brightness = Math.min(
+                    Constants.WALL_MAX_BRIGHTNESS,
+                    (float) (Constants.TORCH_FACTOR / ray.distance) / 255);
+
+            if (ray.tile == Constants.WALL_ID) {
+                Color grey = Color.getHSBColor(Constants.WALL_COLOUR_HSB[0], Constants.WALL_COLOUR_HSB[1], brightness);
+                g.setColor(grey);
+            }
 
             g.fillRect(
                     Constants.SCREEN_WIDTH - (i * Constants.RES),
-                    (int) (Constants.SCREEN_HEIGHT - Player.rays[i].height) / 2,
+                    (int) (Constants.SCREEN_HEIGHT - ray.height) / 2,
                     Constants.RES,
-                    (int) Player.rays[i].height
+                    (int) ray.height
             );
         }
 
