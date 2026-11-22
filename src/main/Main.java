@@ -88,18 +88,6 @@ public class Main {
                         Constants.RAY_MAP_SIZE * 2,
                         Constants.RAY_MAP_SIZE * 2);
             }
-
-            // Rays (what the player sees)
-            g.setColor(Color.cyan);
-            for (Player.Ray ray : Player.rays) {
-                if (ray != null && ray.launched) {
-                    g.fillOval(
-                            (int) (ray.position.x() - Constants.RAY_MAP_SIZE) / Constants.MINIMAP_SIZE_DIVIDER,
-                            (int) (ray.position.y() - Constants.RAY_MAP_SIZE) / Constants.MINIMAP_SIZE_DIVIDER,
-                            (Constants.RAY_MAP_SIZE * 2) / Constants.MINIMAP_SIZE_DIVIDER,
-                            (Constants.RAY_MAP_SIZE * 2) / Constants.MINIMAP_SIZE_DIVIDER);
-                }
-            }
         }
 
         // FPS counter
