@@ -15,7 +15,6 @@ public class Main {
     public static ArrayList<Rectangle> walls = new ArrayList<>(); // Will be a list of the coords of walls
 
     public static boolean renderHUD = false; // Whether to render the hud
-    public static boolean wasSpacePressed = false;
     public static int minimapDivider;
 
     // Variable to be used for handling key input
@@ -48,9 +47,9 @@ public class Main {
     // Method to update all entities
     public static void update() {
         Player.update();
-        if (keyHandler.SPACE && !wasSpacePressed) {
+        if (keyHandler.SPACE && !keyHandler.WAS_SPACE_PRESSED) {
             renderHUD = !renderHUD;
-            wasSpacePressed = true;
+            keyHandler.WAS_SPACE_PRESSED = true;
         }
     }
 

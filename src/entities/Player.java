@@ -115,6 +115,17 @@ public class Player {
             direction -= Constants.PLAYER_TURN_SPEED;
             if (direction <= -360) direction = 0;
         }
+
+        if (Main.keyHandler.NUMPAD_UP) direction = 180;
+        else if (Main.keyHandler.NUMPAD_DOWN) direction = 0;
+        else if (Main.keyHandler.NUMPAD_LEFT && !Main.keyHandler.WAS_NUMLEFT_PRESSED) {
+            direction += 90;
+            Main.keyHandler.WAS_NUMLEFT_PRESSED = true;
+        }
+        else if (Main.keyHandler.NUMPAD_RIGHT && !Main.keyHandler.WAS_NUMRIGHT_PRESSED) {
+            direction -= 90;
+            Main.keyHandler.WAS_NUMRIGHT_PRESSED = true;
+        }
     }
 
     public static void tryMove(double dx, double dy) {
