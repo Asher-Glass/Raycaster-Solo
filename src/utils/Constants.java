@@ -9,7 +9,7 @@ public class Constants {
     public static final int SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height; // Height of window
 
     // Map/Tile Constants
-    public static final int TILE_SIZE = 16; // Measurement of one tile
+    public static final int TILE_SIZE = 32; // Measurement of one tile
     public static final int WALL_ID = 1;
     public static final int WALL_HEIGHT = 70_000;
 
@@ -31,6 +31,6 @@ public class Constants {
     public static final double RAY_INCREMENT = (double) FOV / RAY_AMOUNT;
 
     // Minimap Constants
-    public static final int MINIMAP_SIZE_DIVIDER = 2; // tile size / this = how many pixels^2 for minimap tile
+    public static final int MINIMAP_SIZE_DIVIDER = 4; // tile size / this = how many pixels^2 for minimap tile
     public static final int RAY_MAP_SIZE = ENTITY_RADIUS / 2;
 }
