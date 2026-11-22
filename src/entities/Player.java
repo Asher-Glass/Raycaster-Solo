@@ -33,17 +33,13 @@ public class Player {
         }
 
         public void update() {
-            if (launched && hitPos == null) {
+
+            position = Player.position;
+            direction = Player.direction + offsetFinal;
+
+            if (hitPos == null) {
                 while (hitPos == null) move();
-            } else if (launched) {
-                launched = false;
-                hitPos = null;
-            }
-            else {
-                position = Player.position;
-                direction = Player.direction + offsetFinal;
-                launched = true;
-            }
+            } else hitPos = null;
         }
 
         public void move() {
