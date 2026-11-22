@@ -114,19 +114,32 @@ public class Player {
     }
 
     public static void tryMove(double dx, double dy) {
-        position = position.add(dx, dy);
 
-        for (Rectangle wall : Main.walls) {
-            double r = Constants.ENTITY_RADIUS;
+        position = position.add(dx, 0);
 
-            if (
-                wall.contains(position.x() - r, position.y() - r) ||
-                wall.contains(position.x() + r, position.y() - r) ||
-                wall.contains(position.x() - r, position.y() + r) ||
-                wall.contains(position.x() + r, position.y() + r)
-            ) {
-                position = position.subtract(dx, dy);
-            }
+        int row = (int) (position.y() / Constants.TILE_SIZE);
+        int col = (int) (position.x() / Constants.TILE_SIZE);
+        int tile = MapLoader.binMap[row][col];
+
+        while (tile == Constants.WALL_ID) {
+            position = position.subtract(dx, 0);
+
+            row = (int) (position.y() / Constants.TILE_SIZE);
+            col = (int) (position.x() / Constants.TILE_SIZE);
+            tile = MapLoader.binMap[row][col];
+        }
+
+        position = position.add(0, dy);
+        row = (int) (position.y() / Constants.TILE_SIZE);
+        col = (int) (position.x() / Constants.TILE_SIZE);
+        tile = MapLoader.binMap[row][col];
+
+        while (tile == Constants.WALL_ID) {
+            position = position.subtract(0, dy);
+
+            row = (int) (position.y() / Constants.TILE_SIZE);
+            col = (int) (position.x() / Constants.TILE_SIZE);
+            tile = MapLoader.binMap[row][col];
         }
     }
 }
