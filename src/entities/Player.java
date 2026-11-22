@@ -68,7 +68,8 @@ public class Player {
                         [(int) (position.y() / Constants.TILE_SIZE)]
                         [(int) (position.x() / Constants.TILE_SIZE)] == Constants.WALL_ID);
                 hitPos = position;
-                height = Constants.WALL_HEIGHT / hitPos.distanceTo(Player.position);
+                double distance = hitPos.distanceTo(Player.position) * Math.cos(Math.toRadians(offsetFinal));
+                height = Constants.WALL_HEIGHT / distance;
             }
         }
     }
@@ -88,26 +89,26 @@ public class Player {
         double dirRad = Math.toRadians(direction);
 
         if (Main.keyHandler.UP)
-            tryMove(Constants.ENTITY_SPEED * Math.sin(dirRad), Constants.ENTITY_SPEED * Math.cos(dirRad));
+            tryMove(Constants.PLAYER_SPEED * Math.sin(dirRad), Constants.PLAYER_SPEED * Math.cos(dirRad));
 
         if (Main.keyHandler.DOWN)
-            tryMove(-Constants.ENTITY_SPEED * Math.sin(dirRad), -Constants.ENTITY_SPEED * Math.cos(dirRad));
+            tryMove(-Constants.PLAYER_SPEED * Math.sin(dirRad), -Constants.PLAYER_SPEED * Math.cos(dirRad));
 
         if (Main.keyHandler.STRAFE_L) {
             dirRad = Math.toRadians(direction + 90);
-            tryMove(Constants.ENTITY_SPEED * Math.sin(dirRad), Constants.ENTITY_SPEED * Math.cos(dirRad));
+            tryMove(Constants.PLAYER_SPEED * Math.sin(dirRad), Constants.PLAYER_SPEED * Math.cos(dirRad));
         }
         if (Main.keyHandler.STRAFE_R) {
             dirRad = Math.toRadians(direction - 90);
-            tryMove(Constants.ENTITY_SPEED * Math.sin(dirRad), Constants.ENTITY_SPEED * Math.cos(dirRad));
+            tryMove(Constants.PLAYER_SPEED * Math.sin(dirRad), Constants.PLAYER_SPEED * Math.cos(dirRad));
         }
 
         if (Main.keyHandler.LEFT) {
-            direction += Constants.ENTITY_SPEED;
+            direction += Constants.PLAYER_TURN_SPEED;
             if (direction >= 360) direction = 0;
         }
         if (Main.keyHandler.RIGHT) {
-            direction -= Constants.ENTITY_SPEED;
+            direction -= Constants.PLAYER_TURN_SPEED;
             if (direction <= -360) direction = 0;
         }
     }

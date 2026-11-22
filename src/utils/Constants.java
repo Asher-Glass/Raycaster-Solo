@@ -15,7 +15,10 @@ public class Constants {
 
     // Entity Constants
     public static final int ENTITY_RADIUS = 4; // How big the entities are (tile size / 4)
-    public static final int ENTITY_SPEED = 3; // How fast entities move (might separate player to entity)
+
+    // Player Constants
+    public static final int PLAYER_SPEED = 3;// How fast entities move (might separate player to entity)
+    public static final int PLAYER_TURN_SPEED = 2;
 
     // RayCasting-Specific Constants
     public static final int RES = 4; // Sort of inverse resolution
