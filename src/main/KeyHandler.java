@@ -10,6 +10,7 @@ public class KeyHandler extends KeyAdapter {
     public boolean STRAFE_R = false;
     public boolean LEFT = false;
     public boolean RIGHT = false;
+    public boolean SPACE = false;
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -27,6 +28,8 @@ public class KeyHandler extends KeyAdapter {
             case KeyEvent.VK_LEFT -> LEFT = true;
 
             case KeyEvent.VK_RIGHT -> RIGHT = true;
+
+            case KeyEvent.VK_SPACE -> SPACE = true;
         }
     }
 
@@ -46,6 +49,11 @@ public class KeyHandler extends KeyAdapter {
             case KeyEvent.VK_LEFT -> LEFT = false;
 
             case KeyEvent.VK_RIGHT -> RIGHT = false;
+
+            case KeyEvent.VK_SPACE -> {
+                SPACE = false;
+                if (Main.wasSpacePressed) Main.wasSpacePressed = false;
+            }
         }
     }
 }

@@ -14,7 +14,8 @@ public class Main {
     public static int[][] worldMap; // Will be a matrix array of the map
     public static ArrayList<Rectangle> walls = new ArrayList<>(); // Will be a list of the coords of walls
 
-    public static boolean renderMap2D = true; // Whether to render the minimap
+    public static boolean renderHUD = false; // Whether to render the hud
+    public static boolean wasSpacePressed = false;
     public static int minimapDivider;
 
     // Variable to be used for handling key input
@@ -47,6 +48,10 @@ public class Main {
     // Method to update all entities
     public static void update() {
         Player.update();
+        if (keyHandler.SPACE && !wasSpacePressed) {
+            renderHUD = !renderHUD;
+            wasSpacePressed = true;
+        }
     }
 
     // Paint screen (will probably be replaced with BufferedImage later)
@@ -68,8 +73,8 @@ public class Main {
             );
         }
 
-        // Render Minimap if enabled
-        if (Main.renderMap2D && Main.worldMap != null) {
+        // Render HUD if enabled
+        if (Main.renderHUD && Main.worldMap != null) {
 
             // Walls
             g.setColor(Color.lightGray);
@@ -96,18 +101,18 @@ public class Main {
                         (Constants.ENTITY_RADIUS * 2) / (minimapDivider / 2),
                         (Constants.ENTITY_RADIUS * 2) / (minimapDivider / 2));
             }
+
+            // FPS counter
+            g.setColor(Color.green);
+            Font font = new Font("Arial", Font.BOLD, 60);
+            g.setFont(font);
+            FontMetrics metrics = g.getFontMetrics(font);
+            String fps = String.valueOf(window.displayFPS);
+
+            int x = Constants.SCREEN_WIDTH - metrics.stringWidth(fps);
+            int y = metrics.getAscent();
+
+            g.drawString(fps, x, y);
         }
-
-        // FPS counter
-        g.setColor(Color.green);
-        Font font = new Font("Arial", Font.BOLD, 60);
-        g.setFont(font);
-        FontMetrics metrics = g.getFontMetrics(font);
-        String fps = String.valueOf(window.displayFPS);
-
-        int x = Constants.SCREEN_WIDTH - metrics.stringWidth(fps);
-        int y = metrics.getAscent();
-
-        g.drawString(fps, x, y);
     }
 }
