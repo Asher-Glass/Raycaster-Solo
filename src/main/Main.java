@@ -14,8 +14,8 @@ public class Main {
     public static int[][] worldMap; // Will be a matrix array of the map
     public static ArrayList<Rectangle> walls = new ArrayList<>(); // Will be a list of the coords of walls
 
-    // Whether to render the minimap
-    public static boolean renderMap2D = true;
+    public static boolean renderMap2D = true; // Whether to render the minimap
+    public static int minimapDivider;
 
     // Variable to be used for handling key input
     public static KeyHandler keyHandler = new KeyHandler();
@@ -29,7 +29,7 @@ public class Main {
 
         // Initiate player into middle of map
         Player.position = new Vector2D(
-                ((double) worldMap.length / 2) * Constants.TILE_SIZE,
+                ((double) worldMap[0].length / 2) * Constants.TILE_SIZE,
                 ((double) worldMap.length / 2) * Constants.TILE_SIZE);
 
         // Instantiate player's rays
@@ -39,6 +39,9 @@ public class Main {
     // Method to generate map
     public static void genMap() {
         worldMap = MapLoader.loadMap("src/utils/map.txt");
+        minimapDivider = (Math.max(
+                worldMap.length,
+                worldMap[0].length) * Constants.TILE_SIZE) / Constants.DESIRED_PIXELS_SIZE;
     }
 
     // Method to update all entities
@@ -71,10 +74,10 @@ public class Main {
 
                     if (Main.worldMap[row][col] == Constants.WALL_ID) {
                         g.fillRect(
-                                (col * Constants.TILE_SIZE) / Constants.MINIMAP_SIZE_DIVIDER,
-                                (row * Constants.TILE_SIZE) / Constants.MINIMAP_SIZE_DIVIDER,
-                                Constants.TILE_SIZE / Constants.MINIMAP_SIZE_DIVIDER,
-                                Constants.TILE_SIZE / Constants.MINIMAP_SIZE_DIVIDER);
+                                (col * Constants.TILE_SIZE) / minimapDivider,
+                                (row * Constants.TILE_SIZE) / minimapDivider,
+                                Constants.TILE_SIZE / minimapDivider,
+                                Constants.TILE_SIZE / minimapDivider);
                     }
                 }
             }
@@ -83,10 +86,10 @@ public class Main {
             if (Player.position != null) {
                 g.setColor(Color.yellow);
                 g.fillOval(
-                        (int) (Player.position.x() - (double) Constants.RAY_MAP_SIZE) / Constants.MINIMAP_SIZE_DIVIDER,
-                        (int) (Player.position.y() - (double) Constants.RAY_MAP_SIZE) / Constants.MINIMAP_SIZE_DIVIDER,
-                        Constants.RAY_MAP_SIZE * 2,
-                        Constants.RAY_MAP_SIZE * 2);
+                        (int) (Player.position.x() - (double) Constants.ENTITY_RADIUS) / minimapDivider,
+                        (int) (Player.position.y() - (double) Constants.ENTITY_RADIUS) / minimapDivider,
+                        (Constants.ENTITY_RADIUS * 2) / (minimapDivider / 2),
+                        (Constants.ENTITY_RADIUS * 2) / (minimapDivider / 2));
             }
         }
 

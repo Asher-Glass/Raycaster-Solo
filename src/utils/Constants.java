@@ -31,6 +31,5 @@ public class Constants {
     public static final double RAY_INCREMENT = (double) FOV / RAY_AMOUNT;
 
     // Minimap Constants
-    public static final int MINIMAP_SIZE_DIVIDER = 4; // tile size / this = how many pixels^2 for minimap tile
-    public static final int RAY_MAP_SIZE = ENTITY_RADIUS / 2;
+    public static final int DESIRED_PIXELS_SIZE = 256; // Desired amount of pixels the minimap should take up (dynamic)
 }
