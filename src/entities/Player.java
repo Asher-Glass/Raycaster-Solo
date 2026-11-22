@@ -15,6 +15,7 @@ public class Player {
         public double direction;
         public boolean launched;
         public Vector2D hitPos;
+        public double distance;
         public double height;
 
         static {
@@ -66,6 +67,8 @@ public class Player {
                 hitPos = position;
                 double distance = hitPos.distanceTo(Player.position) * Math.cos(Math.toRadians(offsetFinal));
                 height = Constants.WALL_HEIGHT / distance;
+
+                this.distance = hitPos.distanceTo(Player.position);
             }
         }
     }

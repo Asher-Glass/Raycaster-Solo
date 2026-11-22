@@ -52,9 +52,14 @@ public class Main {
     // Paint screen (will probably be replaced with BufferedImage later)
     public static void paint(Graphics2D g) {
 
-        // Render pseudo-3D world!
-        g.setColor(Color.darkGray);
+        // Render pseudo-3D world
         for (int i = 0; i < Player.rays.length; i++) {
+
+            float brightness = Math.min(.5f, (float) (Constants.TORCH_FACTOR / Player.rays[i].distance) / 255);
+            float[] HSBGrey = Color.RGBtoHSB(64, 64, 64, null);
+            Color grey = Color.getHSBColor(HSBGrey[0], HSBGrey[1], brightness);
+            g.setColor(grey);
+
             g.fillRect(
                     Constants.SCREEN_WIDTH - (i * Constants.RES),
                     (int) (Constants.SCREEN_HEIGHT - Player.rays[i].height) / 2,
