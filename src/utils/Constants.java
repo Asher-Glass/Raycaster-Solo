@@ -16,6 +16,16 @@ public class Constants {
     public static final float[] WALL_COLOUR_HSB = Color.RGBtoHSB(64, 64, 64, null);
     public static final float WALL_MAX_BRIGHTNESS = .25f;
 
+    // Minimap Constants
+    // Desired amount of pixels the minimap should take up (dynamic)
+    public static final int MINIMAP_DESIRED_PIXELS_SIZE = 256;
+
+    // Colour Constants (0xAARRGGBB)
+    public static final int COLOUR_BG = 0xFF000000;             // Black
+    public static final int COLOUR_MINI_WALL = 0xFFC0C0C0;      // Light Grey
+    public static final int COLOUR_MINI_PLAYER = 0xFFFFFF00;    // Yellow
+    public static final int COLOUR_FPS = 0xFF00FF00;            // Green
+
     // Entity Constants
     public static final int ENTITY_RADIUS = 4; // How big the entities are (tile size / 4)
 
@@ -34,7 +44,4 @@ public class Constants {
 
     public static final int RAY_AMOUNT = (SCREEN_WIDTH / RES) + 1; // Amount of rays to be made
     public static final double RAY_INCREMENT = (double) FOV / RAY_AMOUNT;
-
-    // Minimap Constants
-    public static final int DESIRED_PIXELS_SIZE = 256; // Desired amount of pixels the minimap should take up (dynamic)
 }

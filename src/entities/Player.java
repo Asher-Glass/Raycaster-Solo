@@ -88,6 +88,35 @@ public class Player {
         for (Ray ray : rays) if (ray != null) ray.update();
     }
 
+    public static void paint() {
+        Graphics2D g = Main.window.image.createGraphics();
+
+        // Render pseudo-3D world
+        for (int i = 0; i < rays.length; i++) {
+
+            Ray ray = rays[i];
+
+            float brightness = Math.min(
+                    Constants.WALL_MAX_BRIGHTNESS,
+                    (float) (Constants.TORCH_FACTOR / ray.distance) / 255
+            );
+
+            if (ray.tile == Constants.WALL_ID) {
+                Color grey = Color.getHSBColor(Constants.WALL_COLOUR_HSB[0], Constants.WALL_COLOUR_HSB[1], brightness);
+                g.setColor(grey);
+            }
+
+            g.fillRect(
+                    Constants.SCREEN_WIDTH - (i * Constants.RES),
+                    (int) (Constants.SCREEN_HEIGHT - ray.height) / 2,
+                    Constants.RES,
+                    (int) ray.height
+            );
+        }
+
+        g.dispose();
+    }
+
     public static void move() {
 
         double dirRad = Math.toRadians(direction);

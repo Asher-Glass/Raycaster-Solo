@@ -41,7 +41,7 @@ public class Main {
         worldMap = MapLoader.loadMap("src/utils/map.txt");
         minimapDivider = (Math.max(
                 worldMap.length,
-                worldMap[0].length) * Constants.TILE_SIZE) / Constants.DESIRED_PIXELS_SIZE;
+                worldMap[0].length) * Constants.TILE_SIZE) / Constants.MINIMAP_DESIRED_PIXELS_SIZE;
     }
 
     // Method to update all entities
@@ -54,35 +54,20 @@ public class Main {
     }
 
     // Paint screen (will probably be replaced with BufferedImage later)
-    public static void paint(Graphics2D g) {
+    public static void paint() {
 
-        // Render pseudo-3D world
-        for (int i = 0; i < Player.rays.length; i++) {
+        Graphics2D g = window.image.createGraphics();
 
-            Player.Ray ray = Player.rays[i];
+        g.setColor(new Color(Constants.COLOUR_BG));
+        g.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 
-            float brightness = Math.min(
-                    Constants.WALL_MAX_BRIGHTNESS,
-                    (float) (Constants.TORCH_FACTOR / ray.distance) / 255);
-
-            if (ray.tile == Constants.WALL_ID) {
-                Color grey = Color.getHSBColor(Constants.WALL_COLOUR_HSB[0], Constants.WALL_COLOUR_HSB[1], brightness);
-                g.setColor(grey);
-            }
-
-            g.fillRect(
-                    Constants.SCREEN_WIDTH - (i * Constants.RES),
-                    (int) (Constants.SCREEN_HEIGHT - ray.height) / 2,
-                    Constants.RES,
-                    (int) ray.height
-            );
-        }
+        Player.paint();
 
         // Render HUD if enabled
         if (Main.renderHUD && Main.worldMap != null) {
 
             // Walls
-            g.setColor(Color.lightGray);
+            g.setColor(new Color(Constants.COLOUR_MINI_WALL));
 
             for (int row = 0; row < Main.worldMap.length; row++) {
                 for (int col = 0; col < Main.worldMap[0].length; col++) {
@@ -99,7 +84,7 @@ public class Main {
 
             // Player
             if (Player.position != null) {
-                g.setColor(Color.yellow);
+                g.setColor(new Color(Constants.COLOUR_MINI_PLAYER));
                 g.fillOval(
                         (int) (Player.position.x() - (double) Constants.ENTITY_RADIUS) / minimapDivider,
                         (int) (Player.position.y() - (double) Constants.ENTITY_RADIUS) / minimapDivider,
@@ -108,7 +93,7 @@ public class Main {
             }
 
             // FPS counter
-            g.setColor(Color.green);
+            g.setColor(new Color(Constants.COLOUR_FPS));
             Font font = new Font("Arial", Font.BOLD, 60);
             g.setFont(font);
             FontMetrics metrics = g.getFontMetrics(font);
@@ -119,5 +104,7 @@ public class Main {
 
             g.drawString(fps, x, y);
         }
+
+        g.dispose();
     }
 }

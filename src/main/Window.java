@@ -1,21 +1,28 @@
 package main;
 
+import entities.*;
+import utils.*;
+
 import javax.swing.*;
 import java.awt.*;
-
-import static utils.Constants.*;
+import java.awt.image.*;
 
 // Desktop window handler
 public class Window extends JPanel {
 
     public int displayFPS; // Count how many frames passed
+    public BufferedImage image;
 
     public Window() {
-        this.setBackground(Color.black); // Black background
+        image = new BufferedImage(
+                Constants.SCREEN_WIDTH,
+                Constants.SCREEN_HEIGHT,
+                BufferedImage.TYPE_INT_ARGB
+        );
 
-        JFrame frame = new JFrame(TITLE); // Make screen
+        JFrame frame = new JFrame(Constants.TITLE); // Make screen
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Stop program when window closes
-        frame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT); // Fullscreen
+        frame.setSize(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT); // Fullscreen
         frame.setUndecorated(true); // Remove the menu bar (proper fullscreen)
         frame.setResizable(false); // Can't resize window (if enabled will cause issues when resized)
         frame.setLocationRelativeTo(null); // Centre window
@@ -76,11 +83,11 @@ public class Window extends JPanel {
     }
 
     // Paint the whole screen and call Main.paint() which holds other paint methods
-    // FIXME: Replace with BufferedImage
     public void paintComponent(Graphics G) {
         super.paintComponent(G);
         Graphics2D g = (Graphics2D) G.create();
 
-        Main.paint(g);
+        Main.paint();
+        g.drawImage(image, 0, 0, null);
     }
 }
